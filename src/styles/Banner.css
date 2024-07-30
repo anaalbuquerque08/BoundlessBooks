@@ -1,0 +1,19 @@
+.banner {
+    width: 100%;
+    height: 398px; 
+    background-image: url('/src/assets/banner_oficial.png'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; 
+    text-align: center;
+  }
+  
+  @media (max-width: 1040px) {
+    .banner {
+        display: none;
+    }
+  }
+  

@@ -1,7 +1,10 @@
 .boxInput {
   display: flex;
+  width: 100%;
   justify-content: center;
-  margin-top: 22px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background-color:  #d04848;
 }
 
 .boxInput input {

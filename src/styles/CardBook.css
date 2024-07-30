@@ -1,14 +1,3 @@
-.gridCard {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 22px;
-  padding: 0px 40px 40px 40px;
-}
-
-.gridCard img {
-  width: 120px;
-  height: 200px;
-}
 
 .bookCardContainer {
   display: flex;
@@ -16,14 +5,18 @@
   align-items: center;
   justify-content: space-between;
   background-color: #4b1e77;
-  border-radius: 8px;
-  margin-top: 22px;
-  padding-bottom: 22px;
-  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.07),
-    0 1px 3px 0 hsla(0, 0%, 0%, 0.06);
+  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.07), 0 1px 3px 0 hsla(0, 0%, 0%, 0.06);
+  width: 100%; 
+  max-width: 220px; 
+  height: 100%;
 }
 
-.gridCard h1 {
+.bookCardContainer img {
+  width: 100%;
+  height: 310px;
+}
+
+.bookCardContainer h1 {
   font-family: "B612", sans-serif;
   margin-top: 12px;
   padding: 3px;
@@ -32,62 +25,27 @@
   color: white;
 }
 
-.gridCard p {
+.bookCardContainer p {
   font-family: Arial, Helvetica, sans-serif;
   margin-top: 8px;
   color: white;
   text-align: center;
 }
 
-.gridCard nav {
+.bookCardContainer nav {
   display: flex;
-  gap: 12px;
+  gap: 10px;
 }
 
-.gridCard button {
+.bookCardContainer button {
   font-size: 0.8rem;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin-top: 16px;
-  margin-bottom: 12px;
   background-color: #00002f;
   color: white;
   border-radius: 6px;
   border: none;
   padding: 6px 8px;
+  cursor: pointer;
 }
-
-@media (min-width: 740px) {
-  .gridCard img {
-    width: calc(70% - 20px);
-    height: 300px;
-  }
-}
-
-@media (min-width: 800px) {
-  .bookCardContainer{
-    margin-inline: 0;
-  }
-  .gridCard {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  .gridCard img {
-    width: 240px;
-    height: 360px;
-  }
-}
-
-
-@media (min-width: 1050px) {
-  .gridCard {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-
-  }
-
-  .gridCard img {
-    width: 240px;
-    height: 360px;
-  }
-}
-

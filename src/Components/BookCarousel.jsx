@@ -1,35 +1,36 @@
-import {motion} from 'frame-motion'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import CardBook from './CardBook';
+import '/src/styles/BookCarousel.css'; 
 
-function BookCarousel(){
-    const carousel =ufeRef();
-    const [width,setWidth] = useState(0)
+function BookCarousel({ books }) {
+  const carousel = useRef();
+  const [width, setWidth] = useState(0);
 
-    useEffect(()=>{
-        console.log(carousel.current?.scrollWidth,carousel.current?.offsetWidth)
-        setWidth(carousel.current?.scrollWidth - carousel.current?.offsetWidth)
-    },[])
+  useEffect(() => {
+    setWidth(carousel.current?.scrollWidth - carousel.current?.offsetWidth);
+  }, [books]);
 
-    return(
-    <div className='App'>
-        <motion.div ref={carousel} className='carousel' whileTap={{cursor:'grabbing'}}>
-            <motion.div 
-            className='inner' 
-            drag='x' 
-            dragContraints={{right: 0, left: - width}} 
-            initial={{x:100}} 
-            animate={{x:0}}
-            transition={{duration:0.8}}>
-              {images.map(image =>(
-                <motion.div className='item' key={image}>
-                    <img src={image} alt='Texto alt'/>
-                    </motion.div>
-              ))}
-
+  return (
+    <div className='ContainerCarousel'>
+      <motion.div ref={carousel} className='carousel' whileTap={{ cursor: 'grabbing' }}>
+        <motion.div 
+          className='inner' 
+          drag='x' 
+          dragConstraints={{ right: 0, left: -width }} 
+          initial={{ x: 100 }} 
+          animate={{ x: 0 }} 
+          transition={{ duration: 0.8 }}
+        >
+          {books.map((book, index) => (
+            <motion.div className='item' key={index}>
+              <CardBook img={book.img} titulo={book.titulo} autor={book.autor} />
             </motion.div>
+          ))}
         </motion.div>
+      </motion.div>
     </div>
-    );
+  );
 }
 
 export default BookCarousel;
