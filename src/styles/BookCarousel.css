@@ -11,26 +11,7 @@
     margin: 30px;
 }
 
-.ContainerCarousel::before,
-.ContainerCarousel::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 120px; 
-    height: 100%;
-    z-index: 1; 
-    pointer-events: none; 
-}
 
-.ContainerCarousel::before {
-    left: 0;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent); 
-}
-
-.ContainerCarousel::after {
-    right: 0;
-    background: linear-gradient(to left, rgba(0, 0, 0, 0.5), transparent); 
-}
 
 .carousel {
     cursor: grab;

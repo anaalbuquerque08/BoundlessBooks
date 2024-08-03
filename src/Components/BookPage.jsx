@@ -75,6 +75,7 @@ const BookPage = () => {
         <h3>Recomendados para Você</h3>
         <BookCarousel books={recomendadosBooks} />
       </div>
+      
       <div className="Categorias">
         <h3>Romance Adolescente</h3>
         <BookCarousel books={romanceAdolescenteBooks} />

@@ -10,7 +10,6 @@ const Home = () => {
   return (
     <>
       <Header />
-    
       <Banner/>
       <BookPage />
     </>

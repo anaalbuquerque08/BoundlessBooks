@@ -5,6 +5,7 @@ import { MdOutlineFavorite } from "react-icons/md";
 import { TbCategoryFilled } from "react-icons/tb";
 import { FaBookOpen } from "react-icons/fa";
 import styled from "styled-components";
+import Input from "../Components/Input"; 
 
 export default function Header() {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -89,6 +90,8 @@ export default function Header() {
         <div>
           <img src="src\assets\logoMobile.png" alt="Logo" />
         </div>
+
+        <Input/>
         <div className="menuHeader">
           <IoIosMenu size={30} onClick={toggleDrawer} /> 
         </div>

@@ -8,12 +8,14 @@
     align-items: center;
     justify-content: center;
     color: white; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1; 
     text-align: center;
   }
   
   @media (max-width: 1040px) {
     .banner {
-        display: none;
+      display: none;  
     }
   }
   
