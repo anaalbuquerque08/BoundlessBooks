@@ -12,7 +12,6 @@
 }
 
 
-
 .carousel {
     cursor: grab;
     overflow: hidden; 
@@ -22,11 +21,7 @@
 .inner {
     display: flex;
     width: 100%; 
-}
-
-.item {
-    min-height: 100px;
-    min-width: 235px;
+    gap: 40px;
 }
 
 .item img {
