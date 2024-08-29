@@ -7,18 +7,21 @@
   background-color: hsl(0, 0%, 10%);
 }
 
-.card { 
+.card {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  cursor: pointer;
   width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
   overflow: hidden;
-  background-color: #333;
-  transition: all 0.5s;
+  background-color: #000000;
+  transition: 500ms linear;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+}
+
+.card:hover {
+  transform: scaleY(1.1);
 }
 
 .card .img {
@@ -31,26 +34,29 @@
   position: relative;
 }
 
-
 .card .content {
   width: 100%;
   padding: 0 20px;
   height: 0;
   opacity: 0;
-  transition: all 0.5s ease-in-out 0.5s; 
+  transition: all 0.5s ease-in-out 0.5s;
   box-sizing: border-box;
   overflow: hidden;
   transform: translateY(0);
-  background-color: #333;
+  background-color: #000000;
   z-index: 1;
 }
 
-.card:hover .content {
+.card:hover .content.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: auto;
   padding: 20px;
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0s; 
+  transition: 0.7s linear;
+  transition-delay: 0s;
 }
 
 .card .content p {
@@ -58,9 +64,10 @@
 }
 
 .card .content .title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: white;
+  width: max-content;
 }
 
 .card .content .desc {
@@ -71,21 +78,43 @@
   color: white;
 }
 
+.actions {
+  display: flex;
+}
+
+.card button {
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 16px;
+  margin-bottom: 12px;
+  margin-inline: 12px;
+  background-color: #d14949;
+  color: white;
+  border-radius: 6px;
+  border: none;
+  padding: 6px 10px;
+}
+
 .card .arrow {
-  padding: 1px; 
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #000000;
+  padding: 1px;
   transform: rotate(0deg);
   transition: all 0.5s;
 }
 
 .card:hover .arrow {
-  transform: rotate(180deg); 
+  transform: rotate(180deg);
 }
 
 .card .arrow span {
-  font-size: 18px; 
-  color: black; 
+  font-size: 18px;
+  color: rgb(255, 255, 255);
 }
-
 
 /* .bookCardContainer {
   display: flex;
