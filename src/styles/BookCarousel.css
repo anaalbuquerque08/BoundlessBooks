@@ -21,7 +21,7 @@
 .inner {
     display: flex;
     width: 100%; 
-    gap: 40px;
+    gap: 36px;
 }
 
 .item img {

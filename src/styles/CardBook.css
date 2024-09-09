@@ -9,15 +9,17 @@
 
 .card {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  width: 250px;
+  width: 210px; 
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
   overflow: hidden;
-  background-color: #000000;
+  background-color: #ffffff;
   transition: 500ms linear;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  border-radius: 5px;
 }
 
 .card:hover {
@@ -26,7 +28,7 @@
 
 .card .img {
   width: 100%;
-  height: 360px;
+  height: 300px;
   background-size: cover;
   background-position: center;
   transition: all 0.5s;
@@ -36,13 +38,10 @@
 
 .card .content {
   width: 100%;
-  padding: 0 20px;
+  padding: 0 10px;
   height: 0;
   opacity: 0;
-  transition: all 0.5s ease-in-out 0.5s;
-  box-sizing: border-box;
-  overflow: hidden;
-  transform: translateY(0);
+  transition: all 0.5s ease-in-out 0.5s; 
   background-color: #000000;
   z-index: 1;
 }
@@ -51,20 +50,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: auto;
-  padding: 20px;
-  opacity: 1;
-  transform: translateY(0);
-  transition: 0.7s linear;
+  height: auto; 
+  padding-bottom: 10px;
+  opacity: 1; 
+  transition: 0.5s linear;
   transition-delay: 0s;
 }
 
 .card .content p {
   margin: 0;
+  padding-top: 10px;
+  padding-bottom: 15px;
 }
 
 .card .content .title {
-  font-size: 18px;
+  font-size: 14px;
+  padding-top: 20px;
   font-weight: 600;
   color: white;
   width: max-content;
@@ -73,8 +74,7 @@
 .card .content .desc {
   font-size: 14px;
   font-weight: 100;
-  opacity: 0.8;
-  margin-top: 8px;
+  opacity: 0.8; 
   color: white;
 }
 
@@ -87,22 +87,22 @@
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 16px;
-  margin-bottom: 12px;
-  margin-inline: 12px;
+  margin-top: 4px;
+  margin-bottom: 18px;
+  margin-inline: 10px;
   background-color: #d14949;
   color: white;
-  border-radius: 6px;
+  border-radius: 2px;
   border: none;
-  padding: 6px 10px;
+  padding: 4px 10px;
 }
 
 .card .arrow {
   display: flex;
   justify-content: center;
   width: 100%;
-  background-color: #000000;
-  padding: 1px;
+  height: 0;
+  background-color: #2a003d; 
   transform: rotate(0deg);
   transition: all 0.5s;
 }
@@ -115,54 +115,3 @@
   font-size: 18px;
   color: rgb(255, 255, 255);
 }
-
-/* .bookCardContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #000000;
-  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.07), 0 1px 3px 0 hsla(0, 0%, 0%, 0.06);
-  width: 100%; 
-  max-width: 220px; 
-  height: 100%;
-}
-
-.bookCardContainer img {
-  width: 100%;
-  height: 310px;
-}
-
-.bookCardContainer h1 {
-  font-family: "B612", sans-serif;
-  margin-top: 12px;
-  padding: 3px;
-  font-size: 1rem;
-  text-align: center;
-  color: white;
-}
-
-.bookCardContainer p {
-  font-family: Arial, Helvetica, sans-serif;
-  margin-top: 8px;
-  color: white;
-  text-align: center;
-}
-
-.bookCardContainer nav {
-  display: flex;
-  gap: 10px;
-}
-
-.bookCardContainer button {
-  font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  margin-top: 16px;
-  background-color: #00002f;
-  color: white;
-  border-radius: 6px;
-  border: none;
-  padding: 6px 8px;
-  cursor: pointer;
-} */
