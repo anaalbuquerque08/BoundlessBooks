@@ -1,10 +1,12 @@
 import React from "react";
 import "/src/styles/CardBook.css";
 import { TiArrowSortedDown } from "react-icons/ti";
+import BookDetails from "./BookDetails";
 
-const CardBook = ({ img, titulo, autor }) => {
+const CardBook = ({ img, titulo, autor, descricao, data, paginas }) => {
   const [isActive, setIsActive] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
+  const [showMore, setShowMore] = React.useState(false);
   const timeoutIdRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -20,6 +22,14 @@ const CardBook = ({ img, titulo, autor }) => {
     return () => clearTimeout(timeoutIdRef.current);
   }, [isHovered]);
 
+  const handleSaibaMaisClick = () => {
+    setShowMore(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowMore(false);
+  };
+
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
@@ -33,7 +43,7 @@ const CardBook = ({ img, titulo, autor }) => {
           <p className="desc">{autor}</p>
           <div className="actions">
             <button>Ler Livro</button>
-            <button>Saiba Mais</button>
+            <button onClick={handleSaibaMaisClick}>Saiba Mais</button>
           </div>
         </div>
         <div className="arrow">
@@ -42,8 +52,20 @@ const CardBook = ({ img, titulo, autor }) => {
           </span>
         </div>
       </div>
+      {showMore && (
+        <BookDetails
+          img={img}
+          titulo={titulo}
+          autor={autor}
+          data={data}
+          paginas={paginas}
+          descricao={descricao}
+          onClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 };
+
 
 export default CardBook;

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import CardBook from './CardBook';
-import '/src/styles/BookCarousel.css'; 
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import CardBook from "./CardBook";
+import "/src/styles/BookCarousel.css";
 
 function BookCarousel({ books }) {
   const carousel = useRef();
@@ -12,19 +12,30 @@ function BookCarousel({ books }) {
   }, [books]);
 
   return (
-    <div className='ContainerCarousel'>
-      <motion.div ref={carousel} className='carousel' whileTap={{ cursor: 'grabbing' }}>
-        <motion.div 
-          className='inner' 
-          drag='x' 
-          dragConstraints={{ right: 0, left: -width }} 
-          initial={{ x: 100 }} 
-          animate={{ x: 0 }} 
+    <div className="ContainerCarousel">
+      <motion.div
+        ref={carousel}
+        className="carousel"
+        whileTap={{ cursor: "grabbing" }}
+      >
+        <motion.div
+          className="inner"
+          drag="x"
+          dragConstraints={{ right: 0, left: -width }}
+          initial={{ x: 100 }}
+          animate={{ x: 0 }}
           transition={{ duration: 0.8 }}
         >
           {books.map((book, index) => (
-            <motion.div className='item' key={index}>
-              <CardBook img={book.img} titulo={book.titulo} autor={book.autor} />
+            <motion.div className="item" key={index}>
+              <CardBook
+                img={book.img}
+                titulo={book.titulo}
+                autor={book.autor}
+                data={book.data}
+                paginas={book.paginas}
+                descricao={book.sinopse}
+              />
             </motion.div>
           ))}
         </motion.div>
