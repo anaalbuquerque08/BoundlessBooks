@@ -1,9 +1,10 @@
 import React from "react";
-import "/src/styles/CardBook.css";
-import { TiArrowSortedDown } from "react-icons/ti";
+import ReactDOM from 'react-dom';
 import BookDetails from "./BookDetails";
+import { TiArrowSortedDown } from "react-icons/ti";
+import "/src/styles/CardBook.css";
 
-const CardBook = ({ img, titulo, autor, descricao, data, paginas }) => {
+const CardBook = ({ img, titulo, autor, descricao, data, paginas, onModalOpen, onModalClose }) => {
   const [isActive, setIsActive] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
   const [showMore, setShowMore] = React.useState(false);
@@ -24,10 +25,12 @@ const CardBook = ({ img, titulo, autor, descricao, data, paginas }) => {
 
   const handleSaibaMaisClick = () => {
     setShowMore(true);
+    onModalOpen();
   };
 
   const handleCloseModal = () => {
     setShowMore(false);
+    onModalClose();
   };
 
   return (
@@ -52,7 +55,7 @@ const CardBook = ({ img, titulo, autor, descricao, data, paginas }) => {
           </span>
         </div>
       </div>
-      {showMore && (
+      {showMore && ReactDOM.createPortal(
         <BookDetails
           img={img}
           titulo={titulo}
@@ -61,11 +64,11 @@ const CardBook = ({ img, titulo, autor, descricao, data, paginas }) => {
           paginas={paginas}
           descricao={descricao}
           onClose={handleCloseModal}
-        />
+        />,
+        document.body
       )}
     </div>
   );
 };
-
 
 export default CardBook;
