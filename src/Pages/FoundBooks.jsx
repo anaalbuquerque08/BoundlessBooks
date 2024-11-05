@@ -1,9 +1,19 @@
-import React from "react";
-import BookCarousel from "./BookCarousel";
-import BookDetails from "./BookDetails";
+import React from 'react'
+import { MdErrorOutline } from "react-icons/md";
+import { useLocation } from 'react-router-dom'
+import Header from '../Components/Header';
+import Banner from '../Components/Banner';
 import "/src/styles/BookPage.css";
+import BookCarousel from '../Components/BookCarousel';
+import BookDetails from '../Components/BookDetails';
 
-const BookPage = () => {
+
+const FoundBooks = () => {
+  const location = useLocation();
+  const books = location.state.books || [];
+  console.log(books);
+  
+
   const [selectedBook, setSelectedBook] = React.useState(null);
 
   const handleOpenModal = (book) => {
@@ -23,6 +33,7 @@ const BookPage = () => {
       paginas: 368,
       sinopse: "Uma competição para conquistar o coração de um príncipe.",
     },
+
     {
       img: "src/assets/capa_a_culpa_e_das_estrelas.jpg",
       titulo: "Eleanor & Park",
@@ -215,27 +226,20 @@ const BookPage = () => {
     },
   ];
 
+  const allBooks = [
+    ...romanceAdolescenteBooks,
+    ...ficcaoCientificaBooks,
+    ...recomendadosBooks,
+  ];
+
+ 
   return (
     <div className={`BookPage ${selectedBook ? "modal-open" : ""}`}>
+      <Header allBooks={allBooks} />
+      <Banner />
       <div className="Categorias">
-        <h3>Recomendados para Você</h3>
-        <BookCarousel books={recomendadosBooks} onBookClick={handleOpenModal} />
-      </div>
-
-      <div className="Categorias">
-        <h3>Romance Adolescente</h3>
-        <BookCarousel
-          books={romanceAdolescenteBooks}
-          onBookClick={handleOpenModal}
-        />
-      </div>
-
-      <div className="Categorias">
-        <h3>Ficção Científica</h3>
-        <BookCarousel
-          books={ficcaoCientificaBooks}
-          onBookClick={handleOpenModal}
-        />
+        <h3>Resultado Da Busca</h3>
+        <BookCarousel books={books} onBookClick={handleOpenModal} />
       </div>
 
       {selectedBook && (
@@ -250,6 +254,7 @@ const BookPage = () => {
       )}
     </div>
   );
-};
+}
 
-export default BookPage;
+export default FoundBooks
+

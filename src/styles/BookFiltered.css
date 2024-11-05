@@ -1,0 +1,54 @@
+.boxFiltered{
+  background-color:#00002e;
+  border-radius: 8px;
+  width: 50%;
+  position: absolute;
+  top: 60px;
+  z-index: 2000;
+}
+
+.bookFiltered{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px;
+  border-bottom: 1px solid #494fd1;
+}
+
+.bookFiltered img{
+  height: auto;
+}
+
+.titulo{
+  text-align: center;
+  max-width: 10ch;
+}
+
+.autor{
+  text-align: center;
+}
+
+.boxAllBooks{
+  background-color: #494fd1;
+  color: wheat;
+}
+
+.boxAllBooks h1{
+  font-size: 22px;
+  text-align: center;
+  padding: 12px;
+}
+
+@media (max-width:860px){
+  .bookFiltered{
+    flex-direction: column;
+  }
+
+  .titulo{
+    margin-block: 22px;
+  }
+
+  .boxAllBooks h1{
+    font-size: 16px;
+  }
+}

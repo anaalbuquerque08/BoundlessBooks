@@ -1,16 +1,11 @@
 import React from "react";
-import Header from "./Header";
-import Input from "../Components/Input"; 
-import BookPage from "../Components/BookPage";
-import Banner from "../Components/Banner";
-
-
+import Header from "../Components/Header";
+import Input from "../Components/Input";
+import BookPage from "./BookPage";
 
 const Home = () => {
   return (
     <>
-      <Header />
-      <Banner/>
       <BookPage />
     </>
   );

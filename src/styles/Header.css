@@ -17,6 +17,12 @@
   cursor: pointer;
 }
 
+.searchHeader{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
 .menuHeaderDesktop{
   display: none;
   color: #cecece;

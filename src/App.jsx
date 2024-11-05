@@ -3,14 +3,15 @@ import "./App.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
-import ReadMore from "./Pages/ReadMore";
+import FoundBooks from "./Pages/FoundBooks";
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/SaibaMais" element={<ReadMore />} />
+        <Route path="/livrosEncontrados" element={<FoundBooks />} />
       </Routes>
     </BrowserRouter>
   );

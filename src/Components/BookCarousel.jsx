@@ -34,6 +34,7 @@ function BookCarousel({ books }) {
           initial={{ x: 100 }}
           animate={{ x: 0 }}
           transition={{ duration: 0.8 }}
+          key={JSON.stringify(books)}
         >
           {books.map((book, index) => (
             <motion.div className="item" key={index}>
