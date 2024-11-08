@@ -1,0 +1,10 @@
+#viewer {
+  padding: 40px;
+  background-color: rgb(255, 248, 219);
+}
+
+
+button {
+  background-color: rgb(255, 255, 255);
+  color: black;
+}

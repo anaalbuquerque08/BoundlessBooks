@@ -7,7 +7,6 @@ import "/src/styles/BookPage.css";
 import BookCarousel from '../Components/BookCarousel';
 import BookDetails from '../Components/BookDetails';
 
-
 const FoundBooks = () => {
   const location = useLocation();
   const books = location.state.books || [];

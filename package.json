@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@xmldom/xmldom": "^0.9.5",
+    "epubjs": "^0.3.93",
     "framer-motion": "^11.3.19",
     "lodash": "^4.17.21",
     "react": "^18.2.0",

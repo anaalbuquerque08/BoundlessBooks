@@ -1,10 +1,20 @@
 import React from "react";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 import BookDetails from "./BookDetails";
 import { TiArrowSortedDown } from "react-icons/ti";
 import "/src/styles/CardBook.css";
+import { Link } from "react-router-dom";
 
-const CardBook = ({ img, titulo, autor, descricao, data, paginas, onModalOpen, onModalClose }) => {
+const CardBook = ({
+  img,
+  titulo,
+  autor,
+  descricao,
+  data,
+  paginas,
+  onModalOpen,
+  onModalClose,
+}) => {
   const [isActive, setIsActive] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
   const [showMore, setShowMore] = React.useState(false);
@@ -45,7 +55,9 @@ const CardBook = ({ img, titulo, autor, descricao, data, paginas, onModalOpen, o
           <span className="title">{titulo}</span>
           <p className="desc">{autor}</p>
           <div className="actions">
-            <button>Ler Livro</button>
+            <Link to={"/modoLeitura"}>
+              <button>Ler Livro</button>
+            </Link>
             <button onClick={handleSaibaMaisClick}>Saiba Mais</button>
           </div>
         </div>
@@ -55,18 +67,19 @@ const CardBook = ({ img, titulo, autor, descricao, data, paginas, onModalOpen, o
           </span>
         </div>
       </div>
-      {showMore && ReactDOM.createPortal(
-        <BookDetails
-          img={img}
-          titulo={titulo}
-          autor={autor}
-          data={data}
-          paginas={paginas}
-          descricao={descricao}
-          onClose={handleCloseModal}
-        />,
-        document.body
-      )}
+      {showMore &&
+        ReactDOM.createPortal(
+          <BookDetails
+            img={img}
+            titulo={titulo}
+            autor={autor}
+            data={data}
+            paginas={paginas}
+            descricao={descricao}
+            onClose={handleCloseModal}
+          />,
+          document.body
+        )}
     </div>
   );
 };
