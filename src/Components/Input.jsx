@@ -1,11 +1,22 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import "/src/styles/Input.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Input = ({ onChange, books }) => {  
+const Input = ({ onChange, books}) => {  
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (books) {
+      navigate("/livrosEncontrados", { state: { books } });
+    } else {
+      console.log("Nenhum livro encontrado.");
+    }
+  };
+
   return (
-    <form className="boxInput">
+    <form className="boxInput" onSubmit={handleSearch}>
       <div className="inputIconContainer">
         <FaSearch className="inputIcon" />
         <input
@@ -14,10 +25,8 @@ const Input = ({ onChange, books }) => {
           onChange={onChange}
         />
       </div>
-      <button>
-        <Link to={"/livrosEncontrados"} state={{books}}>
+      <button type="submit">
           <FaSearch />
-        </Link>
       </button>
     </form>
   );

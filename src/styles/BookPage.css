@@ -5,5 +5,56 @@
     margin-top: 20px;
     font-family: "B612", sans-serif;
     margin-inline:32px;
-  }
+}
   
+.loading-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  height: 100vh; 
+  flex-direction: column;
+  background-color: #00002e; 
+}
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3); 
+  border-top: 4px solid #3498db; 
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite; 
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-container p {
+  font-size: 18px;
+  color: #3498db; 
+  margin-top: 15px; 
+}
+
+.boxError{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 120px;
+  color: white;
+}
+
+.boxError p{
+  margin-top: 6px;
+}
+
+@media (max-width:600px){
+  .boxError h1{
+    font-size: 20px;
+  }
+
+  .boxError p{
+    font-size: 12px;
+    text-align: center;
+  }
+}
