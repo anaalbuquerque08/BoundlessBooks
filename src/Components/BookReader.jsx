@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { GrFormNext } from "react-icons/gr";
+import { GrFormPrevious } from "react-icons/gr";
 import ePub from "epubjs";
 import "/src/styles/BookReader.css";
 
@@ -16,10 +18,6 @@ const BookReader = ({ ebookUrl }) => {
       height: "100%",
     });
     setRendition(newRendition);
-
-    // newRendition.themes.default({
-    //     "p": { "background-color": "white" }
-    // });
 
     newRendition.display().then(() => {
       newBook.locations.generate(1000).then(() => {
@@ -71,25 +69,18 @@ const BookReader = ({ ebookUrl }) => {
 
   return (
     <>
-      <div>
-        <h1>LIVRO</h1>
-      </div>
       <div style={{ width: "100%", height: "100vh" }}>
         <div id="viewer" style={{ width: "100%", height: "100%" }}></div>
         <div
           className="btnPrevNext"
           style={{ position: "absolute", bottom: 20, left: 20 }}
         >
-          <button onClick={goToPreviousPage}>Anterior</button>
-          <button onClick={goToNextPage}>Próxima</button>
-          <input
-            type="number"
-            placeholder="Ir para a página"
-            onChange={(e) => goToPage(parseInt(e.target.value, 10))}
-          />
+          <button onClick={goToPreviousPage}><GrFormPrevious/></button>
+          <button onClick={goToNextPage}><GrFormNext /></button>
+      
         </div>
         <div style={{ position: "absolute", bottom: 20, right: 20 }}>
-          <span>
+          <span id="total-page">
             Página: {currentPage} de {totalPages}
           </span>
         </div>

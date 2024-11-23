@@ -78,10 +78,6 @@
   color: white;
 }
 
-.actions {
-  display: flex;
-}
-
 .card button {
   font-size: 0.728rem;
   font-family: Arial, Helvetica, sans-serif;

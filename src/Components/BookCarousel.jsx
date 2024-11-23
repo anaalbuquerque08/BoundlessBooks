@@ -44,7 +44,7 @@ function BookCarousel({ books }) {
                 autor={book.autor}
                 data={book.data}
                 paginas={book.paginas}
-                descricao={book.sinopse}
+                descricao={book.descricao || book.sinopse}
                 onModalOpen={handleModalOpen}
                 onModalClose={handleModalClose}
               />

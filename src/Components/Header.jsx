@@ -1,5 +1,6 @@
 import "/src/styles/Header.css";
 import React from "react";
+import ReactDOM from 'react-dom';
 import { IoIosMenu } from "react-icons/io";
 import { MdOutlineFavorite } from "react-icons/md";
 import { TbCategoryFilled } from "react-icons/tb";
@@ -9,6 +10,7 @@ import Input from "./Input";
 import BookFiltered from "./BookFiltered";
 import debounce from "lodash/debounce";
 import { Link } from "react-router-dom";
+import BooksShelf from "./BooksShelf";
 
 const Drawer = styled.div`
   position: fixed;
@@ -55,7 +57,17 @@ export default function Header({ allBooks }) {
   const [search, setSearch] = React.useState("");
   const [filteredBooks, setFilteredBooks] = React.useState(allBooks);
   const [showFiltered, setShowFiltered] = React.useState(false);
+  const [isEstanteModalOpen, setIsEstanteModalOpen] = React.useState(false);
   const containerRef = React.useRef(null);
+
+  const openEstanteModal = () => {
+    setIsEstanteModalOpen(true);
+    if (drawerOpen) setDrawerOpen(false);
+  }
+  const closeEstanteModal = () => {
+    setIsEstanteModalOpen(false);
+    document.body.style.overflow = "visible";
+  }
 
   React.useEffect(() => {
     const handleClickOutside = (event) => {
@@ -92,9 +104,8 @@ export default function Header({ allBooks }) {
     setShowFiltered(true);
   }, 300);
 
-
   const handleCloseSearch = () => {
-    setShowFiltered(false); 
+    setShowFiltered(false);
   };
 
   const toggleDrawer = () => {
@@ -110,19 +121,22 @@ export default function Header({ allBooks }) {
     <>
       <Drawer open={drawerOpen}>
         <DrawerContainer>
-          <ItemDrawer>
+          <ItemDrawer id="pointer" onClick={openEstanteModal}>
             <span>
               <FaBookOpen size={24} color="#D04848" />
             </span>
-            <a>Recentes</a>
+            <a>Estante</a>
           </ItemDrawer>
 
-          <ItemDrawer>
-            <span>
-              <MdOutlineFavorite size={24} color="#D04848" />
-            </span>
-            <a>Favoritos</a>
-          </ItemDrawer>
+          <Link to={"/favoritos"}>
+            <ItemDrawer>
+              <span>
+                <MdOutlineFavorite size={24} color="#D04848" />
+              </span>
+
+              <p>Favoritos</p>
+            </ItemDrawer>
+          </Link>
 
           <ItemDrawer>
             <span>
@@ -141,11 +155,17 @@ export default function Header({ allBooks }) {
         </div>
 
         <div className="searchHeader" ref={containerRef}>
-          <Input onChange={({ target }) => debouncedSearch(target.value)} books={filteredBooks} />
+          <Input
+            onChange={({ target }) => debouncedSearch(target.value)}
+            books={filteredBooks}
+          />
 
           {search && filteredBooks.length > 0 && showFiltered && (
             <div className="bookFilteredBox">
-              <BookFiltered books={filteredBooks} onCloseSearch={handleCloseSearch} />
+              <BookFiltered
+                books={filteredBooks}
+                onCloseSearch={handleCloseSearch}
+              />
             </div>
           )}
         </div>
@@ -156,10 +176,17 @@ export default function Header({ allBooks }) {
         <BackdropApp open={drawerOpen} onClick={toggleDrawer} />
 
         <div className="menuHeaderDesktop">
-          <p>Recentes</p>
-          <p>Favoritos</p>
+          <p id="pointer" onClick={openEstanteModal}>Estante</p>
+          <Link to={"/favoritos"}>
+            <p>Favoritos</p>
+          </Link>
           <p>Categorias</p>
         </div>
+        {isEstanteModalOpen &&
+          ReactDOM.createPortal(
+            <BooksShelf onClose={closeEstanteModal} />,
+            document.body
+          )}
       </header>
       <Backdrop open={drawerOpen} onClick={toggleDrawer} />
     </>

@@ -25,12 +25,15 @@
 
 .menuHeaderDesktop{
   display: none;
-  color: #cecece;
   font-size: 14px;
   font-weight: bold;
   font-family: "B612", sans-serif;
   gap: 28px;
   margin-inline:22px;
+}
+
+.menuHeaderDesktop p{
+  color: #cecece;
 }
 
 

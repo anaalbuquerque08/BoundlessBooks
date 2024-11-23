@@ -18,6 +18,7 @@ const BookPage = () => {
     setSelectedBook(null);
   };
 
+
   const romanceAdolescenteBooks = booksData?.romanceAdolescenteBooks || [];
 
   const ficcaoCientificaBooks = booksData?.ficcaoCientificaBooks || [];
