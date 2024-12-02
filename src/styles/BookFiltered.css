@@ -4,8 +4,18 @@
   width: 50%;
   position: absolute;
   top: 60px;
-  z-index: 2000;
+  z-index: 2000;color: white;
 }
+
+ 
+.classificacao_input{ 
+  border-radius: 5px;
+  margin-left: 15px;
+  width: 30px !important;  
+  height: auto !important;  
+}
+
+
 
 .bookFiltered{
   display: flex;
@@ -19,17 +29,35 @@
   height: auto;
 }
 
-.titulo{
-  text-align: center;
-  max-width: 10ch;
+.first-line{
+  display: flex;
+  align-items: center;
+  margin-top: 0px;
+  margin-bottom: 5px;
 }
 
-.autor{
-  text-align: center;
+.titulo{ 
+   max-width:40ch;
+   font-size: 24px;
+}
+
+
+.autor-input{  
+  font-size: 15px;
+  padding-bottom: 10px;
+  color: #d14949;
+  opacity: 90%;
+  font-weight: bold;
+}
+
+ .input-information{ 
+  flex-grow: 1;  
+  padding-left: 40px;
+  padding-right: 30px;
 }
 
 .boxAllBooks{
-  background-color: #494fd1;
+  background-color: #464cbe;
   color: wheat;
 }
 
@@ -39,16 +67,93 @@
   padding: 12px;
 }
 
-@media (max-width:860px){
-  .bookFiltered{
+#gratis{
+  color: rgb(1, 156, 1);
+  font-weight: bold;
+}
+
+.sinopse-mobile {
+  display: none;  
+}
+ 
+@media (max-width: 1300px) {
+
+  .titulo { 
+    font-size: 20px;
+  }
+
+  .input-information{ 
+    font-size: 16px;
+  } 
+
+  .sinopse {
+    display: none;  
+  }
+  .sinopse-mobile {
+    display: block;  
+  }
+}
+ 
+@media (max-width: 1150px) {
+  .bookFiltered {
     flex-direction: column;
   }
 
-  .titulo{
-    margin-block: 22px;
+  .bookImg {
+    display: none;  
+  }
+ 
+
+  .input-information{ 
+    flex-grow: 1;  
+    padding-left: 5px;
+    padding-right: 30px;
+  }
+ 
+
+  #gratis{
+    padding-top: 20px;
+  }
+}
+@media (max-width: 900px) { 
+  .bookImg {
+    display: none;  
   }
 
-  .boxAllBooks h1{
-    font-size: 16px;
+  .titulo { 
+    font-size: 16px; /* Reduzido para manter proporção */
+  }
+
+  .autor-input {  
+    font-size: 13px; /* Fonte do autor ajustada */
+  }
+
+  .sinopse-mobile, .sinopse { 
+    font-size: 14px; /* Fonte da sinopse ajustada */
+  }
+
+  .input-information { 
+    font-size: 14px; /* Redução do texto de informações */
+    flex-grow: 1;  
+    padding-left: 5px;
+    padding-right: 15px; /* Padding ajustado para menos espaço */
+  }
+
+  #gratis {
+    font-size: 14px; /* Texto "Grátis" ajustado */
+    padding-top: 15px;
+  }
+
+  .boxAllBooks h1 {
+    font-size: 14px; /* Reduz tamanho do título no botão */
+  }
+
+  .classificacao_input { 
+    width: 25px !important; /* Reduz tamanho do ícone */
+  }
+
+  .bookFiltered {
+    padding: 18px; /* Reduz o padding para ocupar menos espaço */
+    flex-direction: column;
   }
 }

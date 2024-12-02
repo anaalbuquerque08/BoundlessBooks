@@ -2,7 +2,7 @@ import React from "react";
 import { FaHeart } from "react-icons/fa";
 import { ImBooks } from "react-icons/im";
 import { Link } from "react-router-dom";
-import '/src/styles/BookDetails.css';
+import '/src/styles/BookDetails.css'; 
 
 const BookDetails = ({ img, titulo, autor, data, paginas, descricao, onClose }) => {
   const [isFavorite, setIsFavorite] = React.useState(false);
@@ -58,7 +58,7 @@ const BookDetails = ({ img, titulo, autor, data, paginas, descricao, onClose }) 
       <div className="modal-content">
         <div>
           <button className="modal-close" onClick={onClose}>X</button>
-          <img className="modal-capa" src="src\assets\imgModal1.jpg" alt="" />
+          <img className="modal-capa" src="src\assets\img_modal.png" alt="" />
           <h2 className="modal-title">{titulo}</h2>
         </div>
         <div className="modal-info">
@@ -67,16 +67,21 @@ const BookDetails = ({ img, titulo, autor, data, paginas, descricao, onClose }) 
             <div className="modal-small-info">
               <p id="gratis">Grátis</p>
               <p className="modal-data">{data}</p>
+              <img className="classificacao" src='\src\assets\classificacao_14.png' alt="" />
               <p className="modal-paginas">{paginas} Páginas</p>
             </div>
             <p id="desc" className="modal-descricao">{descricao}</p>
           </div>
-          <div>
+          <div className="modal-coluna-tres">
             <div className="icons-user-actions">
-              <FaHeart onClick={toggleFavorite} color={isFavorite ? "red" : "black"} />
-              <ImBooks size={25} onClick={addToShelf} style={{ color: isShelf ? "#a93000" : "black"}} />
+              <FaHeart onClick={toggleFavorite} color={isFavorite ? "red" : "offwhite"} />
+              <ImBooks size={25} onClick={addToShelf} style={{ color: isShelf ? "#a93000" : "offwhite"}} />
             </div>
-            <p className="modal-author">Autor: {autor}</p>
+            <div className="modal-author">
+            <p >Autor: {autor}</p>
+            <p >Gênero: Drama, Adulto</p>
+            </div>
+            
             <Link to={"/modoLeitura"}>
               <button id="btn-read">Ler Livro</button>
             </Link>

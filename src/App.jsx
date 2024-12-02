@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import FoundBooks from "./Pages/FoundBooks";
 import BookReaderPage from "./Pages/BookReaderPage";
-import FavoriteBooksPage from "./Pages/favoriteBooksPage";
+import FavoriteBooksPage from "./Pages/FavoriteBooksPage"; 
 
 function App() {
   return (

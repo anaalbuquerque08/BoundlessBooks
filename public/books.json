@@ -18,12 +18,13 @@
     },
     {
       "img": "src/assets/capa_pessoas_normais.png",
-      "titulo": "Fangirl",
-      "autor": "Rainbow Rowell",
-      "data": "2013",
-      "paginas": 432,
-      "sinopse": "A vida de uma garota que ama escrever fanfics."
-    },
+      "titulo": "Pessoas Normais",
+      "autor": "Sally Rooney",
+      "data": "2018",
+      "paginas": 368,
+      "sinopse":"A história de Connell e Marianne, dois jovens de mundos distintos, que desenvolvem uma relação profunda e complexa marcada por amizade, amor, descobertas pessoais e os desafios de se entenderem enquanto enfrentam as dificuldades da vida adulta."
+    }
+    ,
     {
       "img": "src/assets/capa1.jpg",
       "titulo": "O Ódio que Você Semeia",
@@ -54,7 +55,7 @@
       "autor": "Orson Scott Card",
       "data": "1985",
       "paginas": 324,
-      "sinopse": "Um jovem prodígio é treinado para salvar a humanidade."
+      "sinopse": "Ender Wiggin, um garoto brilhante, é treinado para liderar a defesa da Terra contra alienígenas. Enfrentando isolamento e dilemas morais, ele descobre o verdadeiro custo da guerra."
     },
     {
       "img": "src/assets/capa2.png",
