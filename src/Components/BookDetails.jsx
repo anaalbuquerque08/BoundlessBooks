@@ -2,6 +2,7 @@ import React from "react";
 import { FaHeart } from "react-icons/fa";
 import { ImBooks } from "react-icons/im";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import '/src/styles/BookDetails.css'; 
 
 const BookDetails = ({ img, titulo, autor, data, paginas, descricao, onClose }) => {
@@ -14,8 +15,10 @@ const BookDetails = ({ img, titulo, autor, data, paginas, descricao, onClose }) 
 
     if(isFavorite){
       favorites = favorites.filter((favorite) => favorite.titulo != titulo)
+      toast("Livro removido dos favoritos! 📕", { icon: "❌" });
     }else{
       favorites.push(bookFavorite)
+      toast.success("Livro adicionado aos favoritos! ❤️");
     }
 
     localStorage.setItem("favorites", JSON.stringify(favorites))
@@ -31,19 +34,22 @@ const BookDetails = ({ img, titulo, autor, data, paginas, descricao, onClose }) 
 
   },[titulo])
 
-  const addToShelf = () => {
+  const toggleShelf = () => {
     const book = { img, titulo, autor, data, paginas, descricao };
     let shelf = JSON.parse(localStorage.getItem("shelf")) || []; 
   
     const isAlreadyInShelf = shelf.some((item) => item.titulo === titulo);
   
-    if (!isAlreadyInShelf) {
+    if (isAlreadyInShelf) {
+      shelf = shelf.filter((item) => item.titulo !== titulo);
+      localStorage.setItem("shelf", JSON.stringify(shelf));
+      toast("Livro removido da estante! 📚", { icon: "❌" });
+      setIsShelf(false); 
+    } else {
       shelf.push(book);
       localStorage.setItem("shelf", JSON.stringify(shelf));
-      alert("Livro adicionado à estante!");
+      toast.success("Livro adicionado à estante! 🛋️");
       setIsShelf(true);
-    } else {
-      alert("Este livro já está na estante!");
     }
   };
 
@@ -74,8 +80,8 @@ const BookDetails = ({ img, titulo, autor, data, paginas, descricao, onClose }) 
           </div>
           <div className="modal-coluna-tres">
             <div className="icons-user-actions">
-              <FaHeart onClick={toggleFavorite} color={isFavorite ? "red" : "offwhite"} />
-              <ImBooks size={25} onClick={addToShelf} style={{ color: isShelf ? "#a93000" : "offwhite"}} />
+              <FaHeart onClick={toggleFavorite} color={isFavorite ? "red" : "whitesmoke"} />
+              <ImBooks size={25} onClick={toggleShelf} style={{ color: isShelf ? "#a93000" : "whitesmoke"}} />
             </div>
             <div className="modal-author">
             <p >Autor: {autor}</p>

@@ -149,6 +149,7 @@
 
   #desc{
     max-width: 240px;
+    margin-bottom: 12px;
   }
 }
 
@@ -158,7 +159,7 @@
   }
   .modal-title{
     font-size: 32px;
-    top: 26%;
+    top: 17%;
   }
   .modal-info{
     grid-template-columns: 1fr;
@@ -171,7 +172,6 @@
 
   .modal-small-info{
     justify-self: center;
-    margin-block: 12px;
   }
 
   #desc{

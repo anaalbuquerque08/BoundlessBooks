@@ -35,7 +35,7 @@ const BooksShelf = ({ onClose }) => {
         </p>
         <div className="box-shelf">
           {booksShelf.map((book) => (
-            <div>
+            <div key={book.titulo}>
               <img id="book-cover" src={book.img} alt="capa do livro" />
               <div className="box-actions">
                 <Link to={"/modoLeitura"}>
