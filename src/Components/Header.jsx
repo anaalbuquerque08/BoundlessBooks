@@ -150,7 +150,7 @@ export default function Header({ allBooks }) {
       <header className="boxHeader">
         <div>
           <Link to={"/"}>
-            <img src="src\assets\logoMobile.png" alt="Logo" />
+            <img src="\assets\logoMobile.png" alt="Logo" />
           </Link>
         </div>
 

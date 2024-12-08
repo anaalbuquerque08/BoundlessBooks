@@ -64,7 +64,7 @@ const BookDetails = ({ img, titulo, autor, data, paginas, descricao, onClose }) 
       <div className="modal-content">
         <div>
           <button className="modal-close" onClick={onClose}>X</button>
-          <img className="modal-capa" src="src\assets\img_modal.png" alt="" />
+          <img className="modal-capa" src="\assets\img_modal.png" alt="" />
           <h2 className="modal-title">{titulo}</h2>
         </div>
         <div className="modal-info">
@@ -73,7 +73,7 @@ const BookDetails = ({ img, titulo, autor, data, paginas, descricao, onClose }) 
             <div className="modal-small-info">
               <p id="gratis">Grátis</p>
               <p className="modal-data">{data}</p>
-              <img className="classificacao" src='\src\assets\classificacao_14.png' alt="" />
+              <img className="classificacao" src='\assets\classificacao_14.png' alt="" />
               <p className="modal-paginas">{paginas} Páginas</p>
             </div>
             <p id="desc" className="modal-descricao">{descricao}</p>
