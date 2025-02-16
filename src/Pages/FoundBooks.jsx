@@ -12,7 +12,6 @@ const FoundBooks = () => {
   const location = useLocation();
   const { booksData, loading, error } = useFetch("/books.json");
   const books = location.state.books || [];
-  console.log(books);
 
   const [selectedBook, setSelectedBook] = React.useState(null);
 
@@ -24,17 +23,7 @@ const FoundBooks = () => {
     setSelectedBook(null);
   };
 
-  const romanceAdolescenteBooks = booksData?.romanceAdolescenteBooks || [];
-
-  const ficcaoCientificaBooks = booksData?.ficcaoCientificaBooks || [];
-
-  const recomendadosBooks = booksData?.recomendadosBooks || [];
-
-  const allBooks = [
-    ...romanceAdolescenteBooks,
-    ...ficcaoCientificaBooks,
-    ...recomendadosBooks,
-  ];
+  const allBooks = booksData || [];
 
   if (loading) {
     return (

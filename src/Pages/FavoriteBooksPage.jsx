@@ -11,18 +11,11 @@ import { useNavigate } from "react-router-dom";
 const FavoriteBooksPage = () => {
   const [favorites, setFavorites] = React.useState([]);
   const [selectedBook, setSelectedBook] = React.useState(null);
-  const { booksData } = useFetch("/books.json");
+  const { booksData, loading, error } = useFetch("/books.json");
   const navigate = useNavigate();
 
-  const romanceAdolescenteBooks = booksData?.romanceAdolescenteBooks || [];
-  const ficcaoCientificaBooks = booksData?.ficcaoCientificaBooks || [];
-  const recomendadosBooks = booksData?.recomendadosBooks || [];
-  const allBooks = [
-    ...romanceAdolescenteBooks,
-    ...ficcaoCientificaBooks,
-    ...recomendadosBooks,
-  ];
-  
+  const allBooks = booksData || [];
+
   React.useEffect(() => {
     const bookFavorite = JSON.parse(localStorage.getItem("favorites")) || [];
     setFavorites(bookFavorite);

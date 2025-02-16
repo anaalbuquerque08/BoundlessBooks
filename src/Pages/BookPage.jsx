@@ -18,18 +18,11 @@ const BookPage = () => {
     setSelectedBook(null);
   };
 
+  const allBooks = booksData || [];
 
-  const romanceAdolescenteBooks = booksData?.romanceAdolescenteBooks || [];
-
-  const ficcaoCientificaBooks = booksData?.ficcaoCientificaBooks || [];
-
-  const recomendadosBooks = booksData?.recomendadosBooks || [];
-
-  const allBooks = [
-    ...romanceAdolescenteBooks,
-    ...ficcaoCientificaBooks,
-    ...recomendadosBooks,
-  ];
+  const recomendadosBooks = allBooks.filter(book => book.categoria === "Recomendados para Você");
+  const romanceAdolescenteBooks = allBooks.filter(book => book.categoria === "Romance Adolescente");
+  const ficcaoCientificaBooks = allBooks.filter(book => book.categoria === "Ficção Científica");
 
   if (loading) {
     return (
