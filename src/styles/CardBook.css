@@ -68,7 +68,7 @@
   padding-top: 20px;
   font-weight: 600;
   color: white;
-  width: max-content;
+  text-align:center;
 }
 
 .card .content .desc {

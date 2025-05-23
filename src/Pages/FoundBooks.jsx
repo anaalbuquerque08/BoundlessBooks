@@ -14,6 +14,7 @@ const FoundBooks = () => {
   const books = location.state.books || [];
 
   const [selectedBook, setSelectedBook] = React.useState(null);
+  
 
   const handleOpenModal = (book) => {
     setSelectedBook(book);
@@ -42,7 +43,7 @@ const FoundBooks = () => {
     <div className={`BookPage ${selectedBook ? "modal-open" : ""}`}>
       <Header allBooks={allBooks} />
       <Banner />
-      <div className="Categorias">
+      <div className="categorys">
         <h3>Resultado Da Busca</h3>
         {books.length > 0 ? (
           <BookCarousel books={books} onBookClick={handleOpenModal} />

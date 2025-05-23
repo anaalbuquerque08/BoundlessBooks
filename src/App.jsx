@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/livrosEncontrados" element={<FoundBooks />} />
-        <Route path="/modoLeitura" element={<BookReaderPage />} />
+        <Route path="/modoLeitura/:id" element={<BookReaderPage />} />
         <Route path="/favoritos" element={<FavoriteBooksPage />} />
       </Routes>
     </BrowserRouter>

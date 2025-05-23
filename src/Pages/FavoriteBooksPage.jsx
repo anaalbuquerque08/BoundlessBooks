@@ -16,6 +16,8 @@ const FavoriteBooksPage = () => {
 
   const allBooks = booksData || [];
 
+  // EU TENHO QUE USAR A ROTA PARA PUXAR OS FAVORITOS
+
   React.useEffect(() => {
     const bookFavorite = JSON.parse(localStorage.getItem("favorites")) || [];
     setFavorites(bookFavorite);
@@ -38,7 +40,7 @@ const FavoriteBooksPage = () => {
     <div>
       <Header allBooks={allBooks} />
       <Banner />
-      <div className="Categorias">
+      <div className="categorys">
         <h3>Lista de Favoritos</h3>
         {favorites.length === 0 ? (
           <div className="boxError">

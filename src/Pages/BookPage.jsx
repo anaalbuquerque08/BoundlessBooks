@@ -5,10 +5,26 @@ import BookDetails from "../Components/BookDetails";
 import "/src/styles/BookPage.css";
 import Header from "../Components/Header";
 import Banner from "../Components/Banner";
+import { apiFetch } from "../services/api";
 
 const BookPage = () => {
   const [selectedBook, setSelectedBook] = React.useState(null);
   const { booksData, loading, error } = useFetch("/books.json");
+  const [books, setBooks] = React.useState([]);
+
+  React.useEffect(() => {
+    async function carregarLivros() {
+      try {
+        const dados = await apiFetch("/api/v1/books");
+        setBooks(dados);
+        console.log("Livros recebidos:", dados);
+      } catch (erro) {
+        console.error("Erro ao carregar livros:", erro.message);
+      }
+    }
+
+    carregarLivros();
+  }, []);
 
   const handleOpenModal = (book) => {
     setSelectedBook(book);
@@ -20,9 +36,10 @@ const BookPage = () => {
 
   const allBooks = booksData || [];
 
-  const recomendadosBooks = allBooks.filter(book => book.categoria === "Recomendados para Você");
-  const romanceAdolescenteBooks = allBooks.filter(book => book.categoria === "Romance Adolescente");
-  const ficcaoCientificaBooks = allBooks.filter(book => book.categoria === "Ficção Científica");
+  const recomendadosBooks = books.filter(book => book.category === "Recomendados para Você");
+  const fantasiaBooks = books.filter(book => book.category === "Fantasia");
+  const romanceBooks = books.filter(book => book.category === "Romance");
+  const ficcaoCientificaBooks = books.filter(book => book.category === "Ficção");
 
   if (loading) {
     return (
@@ -42,20 +59,28 @@ const BookPage = () => {
     <div className={`BookPage ${selectedBook ? "modal-open" : ""}`}>
       <Header allBooks={allBooks} />
       <Banner />
-      <div className="Categorias">
+      <div className="categorys">
         <h3>Recomendados para Você</h3>
         <BookCarousel books={recomendadosBooks} onBookClick={handleOpenModal} />
       </div>
 
-      <div className="Categorias">
-        <h3>Romance Adolescente</h3>
+      <div className="categorys">
+        <h3>Fantasia</h3>
         <BookCarousel
-          books={romanceAdolescenteBooks}
+          books={fantasiaBooks}
           onBookClick={handleOpenModal}
         />
       </div>
 
-      <div className="Categorias">
+      <div className="categorys">
+        <h3>Romance</h3>
+        <BookCarousel
+          books={romanceBooks}
+          onBookClick={handleOpenModal}
+        />
+      </div>
+
+      <div className="categorys">
         <h3>Ficção Científica</h3>
         <BookCarousel
           books={ficcaoCientificaBooks}

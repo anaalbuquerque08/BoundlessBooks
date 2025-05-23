@@ -72,7 +72,7 @@ const BookDetails = ({ img, titulo, autor, data, paginas, descricao, onClose }) 
           <div>
             <div className="modal-small-info">
               <p id="gratis">Grátis</p>
-              <p className="modal-data">{data}</p>
+              <p className="modal-data">{new Date(data).getFullYear()}</p>
               <img className="classificacao" src='\assets\classificacao_14.png' alt="" />
               <p className="modal-paginas">{paginas} Páginas</p>
             </div>

@@ -39,12 +39,13 @@ function BookCarousel({ books }) {
           {books.map((book, index) => (
             <motion.div className="item" key={index}>
               <CardBook
-                img={book.img}
-                titulo={book.titulo}
-                autor={book.autor}
-                data={book.data}
-                paginas={book.paginas}
-                descricao={book.descricao || book.sinopse}
+                id={book.id}
+                img={book.coverImageUrl}
+                titulo={book.title}
+                autor={book.author}
+                data={book.releaseDate}
+                paginas={book.pages}
+                descricao={book.descricao || book.synopsis}
                 onModalOpen={handleModalOpen}
                 onModalClose={handleModalClose}
               />

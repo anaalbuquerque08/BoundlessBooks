@@ -5,7 +5,9 @@ import { TiArrowSortedDown } from "react-icons/ti";
 import "/src/styles/CardBook.css";
 import { Link } from "react-router-dom";
 
+
 const CardBook = ({
+  id,
   img,
   titulo,
   autor,
@@ -55,7 +57,7 @@ const CardBook = ({
           <span className="title">{titulo}</span>
           <p className="desc">{autor}</p>
           <div className="actions">
-            <Link to={"/modoLeitura"}>
+            <Link to={`/modoLeitura/${id}`}>
               <button>Ler Livro</button>
             </Link>
             <button onClick={handleSaibaMaisClick}>Saiba Mais</button>

@@ -1,16 +1,20 @@
 import "/src/styles/Header.css";
 import React from "react";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 import { IoIosMenu } from "react-icons/io";
 import { MdOutlineFavorite } from "react-icons/md";
 import { TbCategoryFilled } from "react-icons/tb";
 import { FaBookOpen } from "react-icons/fa";
+import { FaUserAlt } from "react-icons/fa";
+import { CiLogout } from "react-icons/ci";
 import styled from "styled-components";
 import Input from "./Input";
 import BookFiltered from "./BookFiltered";
 import debounce from "lodash/debounce";
 import { Link } from "react-router-dom";
+import { IoLogInOutline } from "react-icons/io5";
 import BooksShelf from "./BooksShelf";
+import { apiFetch } from "../services/api";
 
 const Drawer = styled.div`
   position: fixed;
@@ -60,14 +64,35 @@ export default function Header({ allBooks }) {
   const [isEstanteModalOpen, setIsEstanteModalOpen] = React.useState(false);
   const containerRef = React.useRef(null);
 
+  const [dados, setDados] = React.useState([]);
+
+  React.useEffect(() => {
+    async function carregarUser() {
+      try {
+        const userDados = await apiFetch("/api/v1/users/me", {
+          withCredentials: true,
+        });
+        setDados(userDados);
+      } catch (erro) {
+        console.error("Erro ao carregar informações do usuário:", erro.message);
+      }
+    }
+
+    carregarUser();
+  }, []);
+
+  React.useEffect(() => {
+    console.log(dados);
+  }, [dados]);
+
   const openEstanteModal = () => {
     setIsEstanteModalOpen(true);
     if (drawerOpen) setDrawerOpen(false);
-  }
+  };
   const closeEstanteModal = () => {
     setIsEstanteModalOpen(false);
     document.body.style.overflow = "visible";
-  }
+  };
 
   React.useEffect(() => {
     const handleClickOutside = (event) => {
@@ -121,6 +146,28 @@ export default function Header({ allBooks }) {
     <>
       <Drawer open={drawerOpen}>
         <DrawerContainer>
+          <ItemDrawer>
+            <span>
+              {dados && dados.googleUser && (
+                <FaUserAlt size={20} color="#D04848" />
+              )}
+            </span>
+            {dados && dados.googleUser && (
+              <a>{dados.googleUser.name.split(" ")[0]}</a>
+            )}
+          </ItemDrawer>
+
+          <ItemDrawer>
+            <span>
+              <IoLogInOutline size={24} color="#D04848" />
+            </span>
+            <button>
+              <a href="http://localhost:8080/oauth2/authorization/google">
+                Login
+              </a>
+            </button>
+          </ItemDrawer>
+
           <ItemDrawer id="pointer" onClick={openEstanteModal}>
             <span>
               <FaBookOpen size={24} color="#D04848" />
@@ -144,6 +191,17 @@ export default function Header({ allBooks }) {
             </span>
             <a>Categorias</a>
           </ItemDrawer>
+
+          {dados && dados.googleUser && (
+            <ItemDrawer>
+              <span>
+                <CiLogout size={24} color="#D04848" />
+              </span>
+              <button>
+                <a href="http://localhost:8080/logout">Sair</a>
+              </button>
+            </ItemDrawer>
+          )}
         </DrawerContainer>
       </Drawer>
 
@@ -176,11 +234,25 @@ export default function Header({ allBooks }) {
         <BackdropApp open={drawerOpen} onClick={toggleDrawer} />
 
         <div className="menuHeaderDesktop">
-          <p id="pointer" onClick={openEstanteModal}>Estante</p>
+          {dados && dados.googleUser && (
+            <p>{dados.googleUser.name.split(" ")[0]}</p>
+          )}
+          <p id="pointer" onClick={openEstanteModal}>
+            Estante
+          </p>
           <Link to={"/favoritos"}>
             <p>Favoritos</p>
           </Link>
           <p>Categorias</p>
+          <button>
+            {dados.googleUser ? (
+              <a href="http://localhost:8080/logout">Sair</a>
+            ) : (
+              <a href="http://localhost:8080/oauth2/authorization/google">
+                Login
+              </a>
+            )}
+          </button>
         </div>
         {isEstanteModalOpen &&
           ReactDOM.createPortal(
