@@ -17,7 +17,6 @@ const BookPage = () => {
       try {
         const dados = await apiFetch("/api/v1/books");
         setBooks(dados);
-        console.log("Livros recebidos:", dados);
       } catch (erro) {
         console.error("Erro ao carregar livros:", erro.message);
       }
@@ -34,7 +33,7 @@ const BookPage = () => {
     setSelectedBook(null);
   };
 
-  const allBooks = booksData || [];
+  const allBooks = books || [];
 
   const recomendadosBooks = books.filter(book => book.category === "Recomendados para Você");
   const fantasiaBooks = books.filter(book => book.category === "Fantasia");

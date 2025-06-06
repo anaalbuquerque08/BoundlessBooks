@@ -6,11 +6,15 @@ const BookFiltered = ({ books, limit = 2, onCloseSearch }) => {
   const limitedBooks = books.slice(0, limit);
 
   const truncateText = (text, maxLength) => {
+    if (typeof text !== "string") return "";
+
     if (text.length > maxLength) {
       return (
         <>
           {text.slice(0, maxLength)}
-          <span style={{ fontWeight: "bold", cursor: "pointer", color: "white" }}>
+          <span
+            style={{ fontWeight: "bold", cursor: "pointer", color: "white" }}
+          >
             ... Saiba mais
           </span>
         </>
@@ -23,17 +27,20 @@ const BookFiltered = ({ books, limit = 2, onCloseSearch }) => {
     <div className="boxFiltered">
       {limitedBooks.map((book, index) => (
         <section key={index} className="bookFiltered">
-          <img className="bookImg" src={book.img} alt={book.titulo} />
+          <img className="bookImg" src={book.coverImageUrl} alt={book.title} />
           <div className="input-information">
             <div className="first-line">
-              <h3 className="titulo">{book.titulo}</h3>
-              <img className="classificacao_input" src="\src\assets\classificacao_14.png" alt="" />
-              
+              <h3 className="titulo">{book.title}</h3>
+              <img
+                className="classificacao_input"
+                src="assets/classificacao_14.png"
+                alt="Classificação indicativa"
+              />
             </div>
 
-            <p className="autor-input">{book.autor}</p>
-            <p className="sinopse">{truncateText(book.sinopse, 180)}</p>
-            <p className="sinopse-mobile">{truncateText(book.sinopse, 90)}</p>
+            <p className="autor-input">{book.author}</p>
+            <p className="sinopse">{truncateText(book.synopsis, 180)}</p>
+            <p className="sinopse-mobile">{truncateText(book.synopsis, 90)}</p>
           </div>
           <p id="gratis">Grátis</p>
         </section>
@@ -41,7 +48,11 @@ const BookFiltered = ({ books, limit = 2, onCloseSearch }) => {
       {books.length > limit && (
         <div className="boxAllBooks">
           <h1>
-            <Link to={"/livrosEncontrados"} state={{ books }} onClick={onCloseSearch}>
+            <Link
+              to={"/livrosEncontrados"}
+              state={{ books }}
+              onClick={onCloseSearch}
+            >
               Ver todos os {books.length} resultados
             </Link>
           </h1>

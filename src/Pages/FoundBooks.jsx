@@ -7,14 +7,29 @@ import Banner from "../Components/Banner";
 import "/src/styles/BookPage.css";
 import BookCarousel from "../Components/BookCarousel";
 import BookDetails from "../Components/BookDetails";
+import { apiFetch } from "../services/api";
+
 
 const FoundBooks = () => {
   const location = useLocation();
-  const { booksData, loading, error } = useFetch("/books.json");
+  const { loading, error } = useFetch("/books.json");
   const books = location.state.books || [];
-
   const [selectedBook, setSelectedBook] = React.useState(null);
+
+  const [booksData, setBooks] = React.useState([]);
   
+    React.useEffect(() => {
+      async function carregarLivros() {
+        try {
+          const dados = await apiFetch("/api/v1/books");
+          setBooks(dados);
+        } catch (erro) {
+          console.error("Erro ao carregar livros:", erro.message);
+        }
+      }
+  
+      carregarLivros();
+    }, []);
 
   const handleOpenModal = (book) => {
     setSelectedBook(book);

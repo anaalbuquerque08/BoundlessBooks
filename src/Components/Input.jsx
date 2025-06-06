@@ -1,9 +1,9 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import "/src/styles/Input.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Input = ({ onChange, books}) => {  
+const Input = ({ onChange, books, onSearchSubmit, value }) => {
   const navigate = useNavigate();
 
   const handleSearch = (e) => {
@@ -13,6 +13,10 @@ const Input = ({ onChange, books}) => {
     } else {
       console.log("Nenhum livro encontrado.");
     }
+
+    if (onSearchSubmit) {
+      onSearchSubmit();
+    }
   };
 
   return (
@@ -20,13 +24,15 @@ const Input = ({ onChange, books}) => {
       <div className="inputIconContainer">
         <FaSearch className="inputIcon" />
         <input
+          id="buscarLivros"
           type="text"
           placeholder="Busque por titulo, autor..."
           onChange={onChange}
+          value={value}
         />
       </div>
-      <button type="submit">
-          <FaSearch />
+      <button onClick={handleSearch}>
+        <FaSearch />
       </button>
     </form>
   );

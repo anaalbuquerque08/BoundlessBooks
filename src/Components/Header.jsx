@@ -59,7 +59,7 @@ const BackdropApp = styled.div`
 export default function Header({ allBooks }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
-  const [filteredBooks, setFilteredBooks] = React.useState(allBooks);
+  const [filteredBooks, setFilteredBooks] = React.useState(allBooks || []);
   const [showFiltered, setShowFiltered] = React.useState(false);
   const [isEstanteModalOpen, setIsEstanteModalOpen] = React.useState(false);
   const containerRef = React.useRef(null);
@@ -67,6 +67,13 @@ export default function Header({ allBooks }) {
   const [dados, setDados] = React.useState([]);
 
   React.useEffect(() => {
+    const temSessao = document.cookie.includes("connect.sid");
+
+    if (!temSessao) {
+      console.log("Usuário não está logado, não vou buscar dados ainda.");
+      return;
+    }
+
     async function carregarUser() {
       try {
         const userDados = await apiFetch("/api/v1/users/me", {
@@ -74,16 +81,12 @@ export default function Header({ allBooks }) {
         });
         setDados(userDados);
       } catch (erro) {
-        console.error("Erro ao carregar informações do usuário:", erro.message);
+        console.warn("Erro ao carregar usuário:", erro.message);
       }
     }
 
     carregarUser();
   }, []);
-
-  React.useEffect(() => {
-    console.log(dados);
-  }, [dados]);
 
   const openEstanteModal = () => {
     setIsEstanteModalOpen(true);
@@ -115,8 +118,8 @@ export default function Header({ allBooks }) {
     if (search) {
       const filtered = allBooks.filter(
         (book) =>
-          book.titulo.toLowerCase().includes(search.toLowerCase()) ||
-          book.autor.toLowerCase().includes(search.toLowerCase())
+          book.title.toLowerCase().includes(search.toLowerCase()) ||
+          book.author.toLowerCase().includes(search.toLowerCase())
       );
       setFilteredBooks(filtered);
     } else {
@@ -131,6 +134,12 @@ export default function Header({ allBooks }) {
 
   const handleCloseSearch = () => {
     setShowFiltered(false);
+    setSearch("");
+  };
+
+  const handleSearchSubmit = () => {
+    setShowFiltered(false);
+    setSearch("");
   };
 
   const toggleDrawer = () => {
@@ -216,6 +225,8 @@ export default function Header({ allBooks }) {
           <Input
             onChange={({ target }) => debouncedSearch(target.value)}
             books={filteredBooks}
+            onSearchSubmit={handleSearchSubmit}
+            value={search}
           />
 
           {search && filteredBooks.length > 0 && showFiltered && (
