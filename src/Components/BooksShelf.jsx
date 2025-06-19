@@ -4,19 +4,41 @@ import { ImBooks } from "react-icons/im";
 import { FaTrashAlt } from "react-icons/fa";
 import { motion } from 'framer-motion';
 import "/src/styles/BooksShelf.css";
+import { toast } from "react-hot-toast";
+import { apiFetch } from "../services/api";
 
 const BooksShelf = ({ onClose }) => {
   const [booksShelf, setBooksShelf] = React.useState([]);
 
   React.useEffect(() => {
-    const booksInShelf = JSON.parse(localStorage.getItem("shelf")) || [];
-    setBooksShelf(booksInShelf);
+    async function carregarEstante() {
+      try {
+        const dados = await apiFetch("/api/v1/users/me", { withCredentials: true})
+        setBooksShelf(dados.shelfBooks);
+      } catch (erro) {
+        console.error("Erro ao carregar favoritos:", erro.message);
+      }
+    }
+
+      carregarEstante();
   }, []);
 
-  const handleDelete = (bookToDelete) => {
-    const updatedShelf = booksShelf.filter((book) => book.titulo !== bookToDelete.titulo);
-    setBooksShelf(updatedShelf);
-    localStorage.setItem("shelf", JSON.stringify(updatedShelf));
+  const handleDelete = async (bookToDelete) => {
+    try {
+      await apiFetch(`/api/v1/users/books/shelf/${bookToDelete.id}`, {
+        method: "DELETE",
+        withCredentials: true,
+      });
+
+      const updatedShelf = booksShelf.filter((book) => book.id !== bookToDelete.id);
+      setBooksShelf(updatedShelf);
+
+      toast("Livro removido da estante! 📚", { icon: "❌" });
+
+    } catch (error) {
+      console.error("Erro ao remover livro da estante:", error.message);
+      toast.error("Erro ao remover livro da estante.");
+    }
   };
 
   return (
@@ -35,10 +57,10 @@ const BooksShelf = ({ onClose }) => {
         </p>
         <div className="box-shelf">
           {booksShelf.map((book) => (
-            <div key={book.titulo}>
-              <img id="book-cover" src={book.img} alt="capa do livro" />
+            <div key={book.id}>
+              <img id="book-cover" src={book.coverImageUrl} alt="capa do livro" />
               <div className="box-actions">
-                <Link to={"/modoLeitura"}>
+                <Link to={`/modoLeitura/${book.id}`}>
                   <button id="read-btn">Ler Agora</button>
                 </Link>
                 <button id="delete-btn" onClick={() => handleDelete(book)} >

@@ -5,8 +5,9 @@ import Banner from "../Components/Banner";
 import BookCarousel from "../Components/BookCarousel";
 import BookDetails from "../Components/BookDetails";
 import "/src/styles/BookPage.css";
-import { MdErrorOutline } from 'react-icons/md';
+import { MdErrorOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { apiFetch } from "../services/api";
 
 const FavoriteBooksPage = () => {
   const [favorites, setFavorites] = React.useState([]);
@@ -16,17 +17,22 @@ const FavoriteBooksPage = () => {
 
   const allBooks = booksData || [];
 
-  // EU TENHO QUE USAR A ROTA PARA PUXAR OS FAVORITOS
-
   React.useEffect(() => {
-    const bookFavorite = JSON.parse(localStorage.getItem("favorites")) || [];
-    setFavorites(bookFavorite);
+    async function carregarFavoritos() {
+      try {
+        const dados = await apiFetch("/api/v1/users/me", { withCredentials: true})
+        setFavorites(dados.favoriteBooks);
+      } catch (erro) {
+        console.error("Erro ao carregar favoritos:", erro.message);
+      }
+    }
+
+      carregarFavoritos();
   }, []);
 
   React.useEffect(() => {
     document.body.style.overflow = "visible";
-  }, [navigate]);  
-
+  }, [navigate]);
 
   const handleOpenModal = (book) => {
     setSelectedBook(book);
@@ -44,7 +50,12 @@ const FavoriteBooksPage = () => {
         <h3>Lista de Favoritos</h3>
         {favorites.length === 0 ? (
           <div className="boxError">
-            <h1><span><MdErrorOutline /></span> Nenhum livro favoritado.</h1>
+            <h1>
+              <span>
+                <MdErrorOutline />
+              </span>{" "}
+              Nenhum livro favoritado.
+            </h1>
             <p>Adicione livros aos seus favoritos para vê-los aqui.</p>
           </div>
         ) : (
@@ -55,7 +66,9 @@ const FavoriteBooksPage = () => {
       {selectedBook && (
         <div className="modal-overlay" onClick={handleCloseModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={handleCloseModal}>X</button>
+            <button className="modal-close" onClick={handleCloseModal}>
+              X
+            </button>
             <BookDetails {...selectedBook} onClose={handleCloseModal} />
           </div>
         </div>

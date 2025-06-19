@@ -72,6 +72,7 @@ const CardBook = ({
       {showMore &&
         ReactDOM.createPortal(
           <BookDetails
+            id={id}
             img={img}
             titulo={titulo}
             autor={autor}

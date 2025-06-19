@@ -3,67 +3,97 @@ import { FaHeart } from "react-icons/fa";
 import { ImBooks } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import '/src/styles/BookDetails.css'; 
+import "/src/styles/BookDetails.css";
+import { apiFetch } from "../services/api";
 
-const BookDetails = ({ img, titulo, autor, data, paginas, descricao, onClose }) => {
+const BookDetails = ({
+  id,
+  img,
+  titulo,
+  autor,
+  data,
+  paginas,
+  descricao,
+  onClose,
+  onRemoveFavorite
+}) => {
   const [isFavorite, setIsFavorite] = React.useState(false);
   const [isShelf, setIsShelf] = React.useState(false);
 
-  const toggleFavorite = () => {
-    const bookFavorite = {img, titulo , autor, data, paginas, descricao}
-    let favorites = JSON.parse(localStorage.getItem("favorites")) || []
+  React.useEffect(() => {
+    async function verificarFavoritoEShelf() {
+      try {
+        const user = await apiFetch("/api/v1/users/me", { withCredentials: true });
 
-    if(isFavorite){
-      favorites = favorites.filter((favorite) => favorite.titulo != titulo)
-      toast("Livro removido dos favoritos! 📕", { icon: "❌" });
-    }else{
-      favorites.push(bookFavorite)
-      toast.success("Livro adicionado aos favoritos! ❤️");
+        const isFav = user.favoriteBooks.some((book) => book.id === id);
+        setIsFavorite(isFav);
+
+        const isOnShelf = user.shelfBooks.some((book) => book.id === id);
+        setIsShelf(isOnShelf);
+      } catch (error) {
+        console.error("Erro ao verificar favorito/estante:", error.message);
+      }
     }
 
-    localStorage.setItem("favorites", JSON.stringify(favorites))
-    setIsFavorite(!isFavorite);
-  }
+    verificarFavoritoEShelf();
+  }, [id]);
 
 
-  React.useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || []
-    const isAlreadyFavorite = favorites.some((book) => book.titulo === titulo);
+  const toggleFavorite = async () => {
+    try {
+      if (isFavorite) {
+        await apiFetch(`/api/v1/users/books/favorite/${id}`, {
+          method: "DELETE",
+          withCredentials: true,
+        });
+        toast("Livro removido dos favoritos! 📕", { icon: "❌" });
 
-    setIsFavorite(isAlreadyFavorite)
+        if (onRemoveFavorite) onRemoveFavorite(id);
+      } else {
+        await apiFetch(`/api/v1/users/books/favorite/${id}`, {
+          method: "POST",
+          withCredentials: true,
+        });
+        toast.success("Livro adicionado aos favoritos! ❤️");
+      }
 
-  },[titulo])
-
-  const toggleShelf = () => {
-    const book = { img, titulo, autor, data, paginas, descricao };
-    let shelf = JSON.parse(localStorage.getItem("shelf")) || []; 
-  
-    const isAlreadyInShelf = shelf.some((item) => item.titulo === titulo);
-  
-    if (isAlreadyInShelf) {
-      shelf = shelf.filter((item) => item.titulo !== titulo);
-      localStorage.setItem("shelf", JSON.stringify(shelf));
-      toast("Livro removido da estante! 📚", { icon: "❌" });
-      setIsShelf(false); 
-    } else {
-      shelf.push(book);
-      localStorage.setItem("shelf", JSON.stringify(shelf));
-      toast.success("Livro adicionado à estante! 🛋️");
-      setIsShelf(true);
+      setIsFavorite(!isFavorite);
+    } catch (erro) {
+       toast.error("Erro ao atualizar favorito. \n Verifique se você está logado.");
+      console.error(erro);
     }
   };
 
-  React.useEffect(() => {
-    const shelf = JSON.parse(localStorage.getItem("shelf")) || [];
-    const isAlreadyInShelf = shelf.some((item) => item.titulo === titulo);
-    setIsShelf(isAlreadyInShelf);
-  }, [titulo]);
+  const toggleShelf = async () => {
+    try {
+      if (isShelf) {
+        await apiFetch(`/api/v1/users/books/shelf/${id}`, {
+          method: "DELETE",
+          withCredentials: true,
+        });
+        toast("Livro removido da estante! 📚", { icon: "❌" });
+      } else {
+        await apiFetch(`/api/v1/users/books/shelf/${id}`, {
+          method: "POST",
+          withCredentials: true,
+        });
+        toast.success("Livro adicionado à estante! 🛋️");
+      }
+
+      setIsShelf(!isShelf);
+    } catch (erro) {
+      toast.error("Erro ao atualizar estante. \n Verifique se você está logado.");
+      console.error(erro);
+    }
+  };
 
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <div>
-          <button className="modal-close" onClick={onClose}>X</button>
+          <button className="modal-close" onClick={onClose}>
+            X
+          </button>
           <img className="modal-capa" src="\assets\img_modal.png" alt="" />
           <h2 className="modal-title">{titulo}</h2>
         </div>
@@ -73,22 +103,35 @@ const BookDetails = ({ img, titulo, autor, data, paginas, descricao, onClose }) 
             <div className="modal-small-info">
               <p id="gratis">Grátis</p>
               <p className="modal-data">{new Date(data).getFullYear()}</p>
-              <img className="classificacao" src='\assets\classificacao_14.png' alt="" />
+              <img
+                className="classificacao"
+                src="\assets\classificacao_14.png"
+                alt=""
+              />
               <p className="modal-paginas">{paginas} Páginas</p>
             </div>
-            <p id="desc" className="modal-descricao">{descricao}</p>
+            <p id="desc" className="modal-descricao">
+              {descricao}
+            </p>
           </div>
           <div className="modal-coluna-tres">
             <div className="icons-user-actions">
-              <FaHeart onClick={toggleFavorite} color={isFavorite ? "red" : "whitesmoke"} />
-              <ImBooks size={25} onClick={toggleShelf} style={{ color: isShelf ? "#a93000" : "whitesmoke"}} />
+              <FaHeart
+                onClick={toggleFavorite}
+                color={isFavorite ? "red" : "whitesmoke"}
+              />
+              <ImBooks
+                size={25}
+                onClick={toggleShelf}
+                style={{ color: isShelf ? "#a93000" : "whitesmoke" }}
+              />
             </div>
             <div className="modal-author">
-            <p >Autor: {autor}</p>
-            <p >Gênero: Drama, Adulto</p>
+              <p>Autor: {autor}</p>
+              <p>Gênero: Drama, Adulto</p>
             </div>
-            
-            <Link to={"/modoLeitura"}>
+
+            <Link to={`/modoLeitura/${id}`}>
               <button id="btn-read">Ler Livro</button>
             </Link>
           </div>

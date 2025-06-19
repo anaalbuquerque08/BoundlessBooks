@@ -67,13 +67,6 @@ export default function Header({ allBooks }) {
   const [dados, setDados] = React.useState([]);
 
   React.useEffect(() => {
-    const temSessao = document.cookie.includes("connect.sid");
-
-    if (!temSessao) {
-      console.log("Usuário não está logado, não vou buscar dados ainda.");
-      return;
-    }
-
     async function carregarUser() {
       try {
         const userDados = await apiFetch("/api/v1/users/me", {
@@ -166,16 +159,20 @@ export default function Header({ allBooks }) {
             )}
           </ItemDrawer>
 
-          <ItemDrawer>
-            <span>
-              <IoLogInOutline size={24} color="#D04848" />
-            </span>
-            <button>
-              <a href="http://localhost:8080/oauth2/authorization/google">
-                Login
-              </a>
-            </button>
-          </ItemDrawer>
+          {dados && dados.googleUser ? (
+            ""
+          ) : (
+            <ItemDrawer>
+              <span>
+                <IoLogInOutline size={24} color="#D04848" />
+              </span>
+              <button className="btnLoginMobile">
+                <a href="http://localhost:8080/oauth2/authorization/google">
+                  Login
+                </a>
+              </button>
+            </ItemDrawer>
+          )}
 
           <ItemDrawer id="pointer" onClick={openEstanteModal}>
             <span>
@@ -206,7 +203,7 @@ export default function Header({ allBooks }) {
               <span>
                 <CiLogout size={24} color="#D04848" />
               </span>
-              <button>
+              <button className="btnLoginMobile">
                 <a href="http://localhost:8080/logout">Sair</a>
               </button>
             </ItemDrawer>
@@ -255,7 +252,7 @@ export default function Header({ allBooks }) {
             <p>Favoritos</p>
           </Link>
           <p>Categorias</p>
-          <button>
+          <button className="btnLogin">
             {dados.googleUser ? (
               <a href="http://localhost:8080/logout">Sair</a>
             ) : (

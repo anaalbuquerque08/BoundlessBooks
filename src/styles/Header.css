@@ -36,6 +36,26 @@
   color: #cecece;
 }
 
+.btnLogin{
+  border: -2px solid #cecece;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background-color: #d14748;
+}
+
+.btnLogin a{
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.btnLoginMobile{
+  background-color: transparent;
+  border: none;
+}
+
+.btnLoginMobile a{
+  color: white;
+}
 
 @media (min-width: 800px){
   .menuHeader{
@@ -44,5 +64,6 @@
 
   .menuHeaderDesktop{
     display: flex;
+    align-items: center;
   }
 }
